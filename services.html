@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Services — Data VA, data cleaning, dashboard creation, and SQL analysis services.">
+  <meta name="theme-color" content="#0f6a92">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Services — DataByNerissa</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* ── SERVICES PAGE HEADER ───────────────────────────── */
+    .page-hero {
+      background: var(--cream);
+      padding: 10rem 4rem 5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── SERVICES GRID ──────────────────────────────────── */
+    .services-section { background: var(--paper); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.2rem;
+      transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card:hover {
+      box-shadow: 0 14px 50px rgba(0,0,0,0.09);
+      transform: translateY(-3px);
+      border-color: var(--accent);
+    }
+
+    /* Subtle background accent on hover */
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+      transform-origin: left;
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-emoji {
+      font-size: 2.5rem;
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+
+    .service-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 0.7rem;
+    }
+
+    .service-card > p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 1.2rem;
+    }
+
+    /* List of what's included in each service */
+    .service-includes {
+      list-style: none;
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+    }
+    .service-includes li {
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+      font-size: 0.84rem;
+      color: var(--muted);
+      margin-bottom: 0.45rem;
+    }
+    .service-includes li::before {
+      content: '✓';
+      color: var(--accent);
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    /* ── WHY HIRE ME SECTION ────────────────────────────── */
+    .why-section { background: var(--dark-bg); }
+    .why-section .section-label { color: var(--accent-light); }
+    .why-section .section-title { color: var(--paper); }
+    .why-section .section-intro { color: var(--dark-text); }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .why-card {
+      border: 1px solid var(--dark-border);
+      border-radius: 14px;
+      padding: 1.8rem;
+      background: rgba(245,241,235,0.04);
+    }
+
+    .why-card .why-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 3rem;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.6rem;
+      opacity: 0.4;
+    }
+    .why-card h4 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: var(--paper);
+      margin-bottom: 0.5rem;
+    }
+    .why-card p {
+      font-size: 0.86rem;
+      color: var(--dark-text);
+      line-height: 1.7;
+    }
+
+    /* ── PRICING NOTE SECTION ───────────────────────────── */
+    .pricing-section { background: var(--cream); }
+
+    .pricing-note {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .pricing-note h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 0.8rem;
+    }
+    .pricing-note p {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+    .pricing-note .note-tag {
+      display: inline-block;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 0.3rem 0.9rem;
+      border-radius: 100px;
+      font-size: 0.78rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Mobile */
+    @media (max-width: 900px) {
+      .page-hero { padding: 8rem 1.5rem 4rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">Data<span>ByNerissa</span></a>
+    <!-- ↑ CHANGE: Your brand name -->
+    <button class="nav-toggle" onclick="toggleNav()"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="services.html" class="active">Services</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <span class="section-label">What I Can Do For You</span>
+    <h1 class="section-title">Services I Offer</h1>
+    <p class="section-intro">
+      Affordable, beginner-friendly data services for small businesses, solo entrepreneurs,
+      and anyone who wants to understand their numbers better.
+      <!-- ↑ CHANGE: Your own service tagline -->
+    </p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SERVICES GRID
+       ── HOW TO EDIT ──
+       Each .service-card is one service you offer.
+       1. Change the emoji icon
+       2. Change the heading (h3) — the service name
+       3. Change the description paragraph
+       4. Update the checklist items under "What's included"
+       To ADD a service: copy a .service-card block and paste it.
+       ═══════════════════════════════════════════════════════ -->
+  <section class="services-section">
+    <span class="section-label reveal">My Offerings</span>
+    <h2 class="section-title reveal">How I Can Help</h2>
+    <p class="section-intro reveal">Each service is designed to make data work easy — even for non-technical clients.</p>
+
+    <div class="services-grid">
+
+      <!-- SERVICE 1: DATA CLEANING -->
+      <div class="service-card reveal">
+        <span class="service-emoji">🧹</span>
+        <!-- ↑ CHANGE: Choose an emoji that fits the service -->
+
+        <h3>Data Cleaning</h3>
+        <!-- ↑ CHANGE: Service name -->
+
+        <p>
+          Got a messy spreadsheet full of duplicates, errors, and inconsistent formatting?
+          I'll clean it up from top to bottom so it's accurate, organized, and ready to use
+          for analysis or reporting.
+          <!-- ↑ CHANGE: Describe the service in simple, friendly language -->
+        </p>
+
+        <ul class="service-includes">
+          <!-- ↑ CHANGE: List what you will actually do for this service -->
+          <li>Remove duplicate records</li>
+          <li>Fix date, number, and text formatting</li>
+          <li>Handle missing or blank values</li>
+          <li>Standardize column names and categories</li>
+          <li>Deliver a clean, final spreadsheet</li>
+        </ul>
+      </div>
+
+      <!-- SERVICE 2: DASHBOARD CREATION -->
+      <div class="service-card reveal" style="transition-delay:0.1s">
+        <span class="service-emoji">📊</span>
+
+        <h3>Dashboard Creation</h3>
+
+        <p>
+          I build clean, visual dashboards in Excel or Power BI so you can see your business
+          performance at a glance — no technical skills needed to understand them.
+          Perfect for tracking sales, inventory, or team performance.
+        </p>
+
+        <ul class="service-includes">
+          <li>Custom dashboard design in Excel or Power BI</li>
+          <li>Charts: bar, line, pie, and more</li>
+          <li>Filters and slicers for easy exploration</li>
+          <li>KPI summary cards (totals, averages, growth)</li>
+          <li>Simple guide on how to use the dashboard</li>
+        </ul>
+      </div>
+
+      <!-- SERVICE 3: EXCEL REPORTS -->
+      <div class="service-card reveal" style="transition-delay:0.2s">
+        <span class="service-emoji">📋</span>
+
+        <h3>Excel Reports</h3>
+
+        <p>
+          Need a professional report from your data? I create clear Excel reports with
+          charts, summaries, and insights that are easy to share with your team or clients.
+          Great for weekly, monthly, or one-time business reports.
+        </p>
+
+        <ul class="service-includes">
+          <li>Organized, formatted Excel report</li>
+          <li>Charts and visualizations included</li>
+          <li>Summary sheet with key takeaways</li>
+          <li>Pivot tables for data exploration</li>
+          <li>Print-ready layout (optional)</li>
+        </ul>
+      </div>
+
+      <!-- SERVICE 4: SQL ANALYSIS -->
+      <div class="service-card reveal" style="transition-delay:0.3s">
+        <span class="service-emoji">🔍</span>
+
+        <h3>Basic SQL Analysis</h3>
+
+        <p>
+          I can query your database to pull the exact information you need — sales trends,
+          customer behavior, product performance, and more. I deliver the results in a
+          clear, easy-to-read format with a simple explanation of what it means.
+        </p>
+
+        <ul class="service-includes">
+          <li>Custom SQL queries for your data</li>
+          <li>Sales and customer analysis</li>
+          <li>Filtering and grouping by date, category, or region</li>
+          <li>Results delivered in CSV or Excel format</li>
+          <li>Plain-English explanation of findings</li>
+        </ul>
+      </div>
+
+      <!-- ── ADD MORE SERVICES HERE ────────────────────────
+           Copy a .service-card block above and paste here.
+           ─────────────────────────────────────────────────── -->
+
+    </div><!-- end services-grid -->
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       WHY HIRE ME SECTION
+       ── HOW TO EDIT ──
+       Change the number, title, and description for each card.
+       ═══════════════════════════════════════════════════════ -->
+  <section class="why-section">
+    <span class="section-label reveal">Why Choose Me</span>
+    <h2 class="section-title reveal">What Makes Me Different</h2>
+    <p class="section-intro reveal">I'm not just another freelancer. Here's what sets me apart as a beginner analyst.</p>
+
+    <div class="why-grid">
+
+      <div class="why-card reveal">
+        <div class="why-num">01</div>
+        <h4>Plain English, Always</h4>
+        <p>No technical jargon. I explain everything in simple terms so you actually understand what your data is saying.</p>
+        <!-- ↑ CHANGE: Your first differentiator -->
+      </div>
+
+      <div class="why-card reveal" style="transition-delay:0.1s">
+        <div class="why-num">02</div>
+        <h4>Honest &amp; Transparent</h4>
+        <p>I tell you exactly what I can and can't do. No overpromising. If I need to learn something for your project, I'll say so — and then I'll learn it.</p>
+      </div>
+
+      <div class="why-card reveal" style="transition-delay:0.2s">
+        <div class="why-num">03</div>
+        <h4>Beginner Rates, Pro Effort</h4>
+        <p>Because I'm building my portfolio, I offer competitive entry-level rates — but I put in full professional effort on every project I take.</p>
+        <!-- ↑ CHANGE: Update this with your actual pricing philosophy -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       PRICING NOTE
+       ── HOW TO EDIT ──
+       This is intentionally vague — freelancers often discuss pricing
+       per project. You can add actual rates if you want.
+       ═══════════════════════════════════════════════════════ -->
+  <section class="pricing-section">
+    <div class="pricing-note reveal">
+      <span class="note-tag">A Note on Pricing</span>
+      <h3>Let's Discuss Your Budget</h3>
+      <p>
+        I don't have fixed prices because every project is different — the complexity,
+        the size of the dataset, and the time needed all matter. Since I'm currently
+        building my portfolio, I offer <strong>flexible and affordable rates</strong>
+        for beginners. I am open to negotiation and happy to work within your budget.
+        <!-- ↑ CHANGE: Update with your actual pricing approach -->
+      </p>
+      <a href="contact.html" class="btn-primary">Get a Free Quote →</a>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-banner">
+    <h2>Let's Turn Your Data into Decisions</h2>
+    <p>Reach out and let's talk about what you need. No commitment required.</p>
+    <a href="contact.html" class="btn-white">Contact Me →</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Nerissa Laduan · Made with data &amp; dedication 🇵🇭</p>
+    <a href="index.html">Data<span>ByNerissa</span></a>
+  </footer>
+
+  <script>
+    function toggleNav() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

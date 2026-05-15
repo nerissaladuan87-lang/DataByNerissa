@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="DataByNerissa — Aspiring Data Analyst. Building dashboards, cleaning data, and turning insights into action.">
+  <meta name="theme-color" content="#0f6a92">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- ═══════════════════════════════════════════════════════
+       PAGE TITLE — appears on the browser tab.
+       Change "Juan dela Cruz" to your real name.
+       ═══════════════════════════════════════════════════════ -->
+  <title>DataByNerissa — Home</title>
+
+  <!-- Shared styles for all pages -->
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* ── HOME PAGE SPECIFIC STYLES ──────────────────────── */
+
+    /* Full-screen hero section */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 4rem 4rem;
+      gap: 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Soft glow behind the photo side */
+    .hero::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 50%;
+      transform: translateY(-50%);
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,98,42,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Green "Available" dot badge */
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 0.4rem 1rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      width: fit-content;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #4caf7d; /* green dot — remove if not available */
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
+    }
+
+    /* Main headline */
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.6rem, 5vw, 4rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+
+    /* Short description text */
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 420px;
+      margin-bottom: 2.5rem;
+      line-height: 1.85;
+    }
+
+    /* Row of buttons */
+    .btn-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* ── PROFILE PHOTO SIDE ─────────────────────────────── */
+    .hero-photo-side {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Decorative frame behind the photo */
+    .photo-frame {
+      position: relative;
+      width: 340px;
+      height: 420px;
+    }
+
+    /* The decorative orange border that sits behind */
+    .photo-frame::before {
+      content: '';
+      position: absolute;
+      top: 16px; left: 16px; right: -16px; bottom: -16px;
+      border: 2px solid var(--accent);
+      border-radius: 18px;
+      z-index: 0;
+    }
+
+    /* ── YOUR PROFILE PHOTO ─────────────────────────────
+       STEP 1: Save your photo in the same folder as this file.
+               Recommended: name it "profile.jpg" or "profile.png"
+               Best size: 400×500 pixels or similar portrait shape.
+
+       STEP 2: Replace "images/profile.jpg" below with your photo filename.
+
+       EXAMPLE: If your photo is named "juan-photo.jpg", change to:
+                src="images/juan-photo.jpg"
+
+       If you don't have a photo yet, the placeholder gradient will show.
+       ──────────────────────────────────────────────────── */
+    .profile-photo {
+      width: 100%;
+      height: 100%;
+      border-radius: 14px;
+      object-fit: cover;
+      object-position: top center; /* shows your face, not feet */
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.15);
+
+      /* ↓ This is the placeholder that shows before you add your photo.
+           Remove it once you have your real photo. */
+      background: linear-gradient(160deg, #2d4060 0%, #1a2740 100%);
+    }
+
+    /* "No photo yet" message inside placeholder */
+    .photo-placeholder {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border-radius: 14px;
+      background: linear-gradient(160deg, #2d4060 0%, #1a2740 100%);
+      color: rgba(255,255,255,0.7);
+      font-size: 0.85rem;
+      text-align: center;
+      padding: 1rem;
+      /* ↓ HIDE THIS DIV once you add your real photo by setting display:none */
+    }
+    .photo-placeholder .icon { font-size: 3rem; margin-bottom: 0.5rem; }
+    .photo-placeholder p { font-size: 0.78rem; opacity: 0.6; }
+
+    /* Floating skill badges that overlay the photo */
+    .floating-tag {
+      position: absolute;
+      padding: 0.5rem 1rem;
+      border-radius: 100px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      z-index: 3;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+    .tag-1 { /* Top right */
+      background: var(--ink);
+      color: var(--paper);
+      top: -10px; right: -30px;
+    }
+    .tag-2 { /* Bottom left */
+      background: var(--accent);
+      color: var(--white);
+      bottom: 40px; left: -40px;
+    }
+    .tag-3 { /* Bottom right */
+      background: var(--white);
+      color: var(--ink);
+      border: 1px solid var(--border);
+      bottom: -10px; right: -15px;
+    }
+
+    /* Gentle floating animation for the photo card */
+    .photo-frame { animation: float 6s ease-in-out infinite; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-10px); }
+    }
+
+    /* ── TRUST BAR / STATS ROW ──────────────────────────── */
+    .stats-bar {
+      background: var(--cream);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: center;
+      gap: 0;
+    }
+
+    .stat-item {
+      flex: 1;
+      max-width: 220px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+
+    .stat-number {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.2rem;
+      color: var(--accent);
+      letter-spacing: -0.03em;
+      display: block;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Mobile */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 7rem 1.5rem 3rem;
+        gap: 3rem;
+      }
+      .hero-photo-side { order: -1; } /* photo above text on mobile */
+      .photo-frame { width: 240px; height: 300px; }
+      .tag-1, .tag-2, .tag-3 { display: none; } /* hide floating tags on mobile */
+      .stats-bar { flex-wrap: wrap; }
+      .stat-item { min-width: 50%; border-bottom: 1px solid var(--border); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════
+       NAVIGATION BAR
+       ── HOW TO EDIT ──
+       1. Change "Data" + "ByJuan" to your own brand name.
+          The word inside <span> gets the orange color.
+       2. Update the href links if you rename your HTML files.
+       ═══════════════════════════════════════════════════════ -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      Data<span>ByNerissa</span>
+      <!-- ↑ CHANGE: Replace "Juan" with your name or brand -->
+    </a>
+
+    <!-- Mobile menu button -->
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════
+       HERO / HOME SECTION
+       ═══════════════════════════════════════════════════════ -->
+  <section class="hero">
+
+    <!-- LEFT: Text content -->
+    <div class="hero-content">
+
+      <!-- ── AVAILABILITY BADGE ────────────────────────────
+           Change this text to reflect your current status.
+           Remove the whole <div class="hero-badge"> if not needed.
+           ─────────────────────────────────────────────────── -->
+      <div class="hero-badge">Available for Freelance &amp; Entry-Level</div>
+
+      <!-- ── MAIN HEADLINE ─────────────────────────────────
+           Edit this to be YOUR headline.
+           The <em> tag makes text italic + orange.
+           ─────────────────────────────────────────────────── -->
+      <h1>
+        Aspiring Data Analyst<br>
+        <em>Turning Data</em><br>
+        into Insights
+      </h1>
+
+      <!-- ── SHORT INTRO ───────────────────────────────────
+           Replace "Juan" with your name.
+           Keep it short — 2-3 sentences max.
+           ─────────────────────────────────────────────────── -->
+      <p class="hero-sub">
+        Hi, I'm <strong>Nerissa</strong> — a passionate data enthusiast from the Philippines.
+        I help businesses make sense of their data through clean dashboards,
+        clear reports, and simple SQL analysis.
+      </p>
+
+      <!-- ── CALL TO ACTION BUTTONS ───────────────────────
+           "View My Projects" → links to projects.html
+           "Download CV"      → links to your PDF resume.
+           Save your resume as "cv.pdf" in the same folder, then change href="cv.pdf"
+           ─────────────────────────────────────────────────── -->
+      <div class="btn-row">
+        <a href="projects.html" class="btn-primary">View My Projects →</a>
+        <a href="cv.pdf" class="btn-secondary" download>Download CV</a>
+        <!-- ↑ CHANGE: Replace "cv.pdf" with your actual resume filename -->
+      </div>
+
+    </div><!-- end hero-content -->
+
+    <!-- RIGHT: Profile photo -->
+    <div class="hero-photo-side">
+      <div class="photo-frame">
+
+        <!-- ════════════════════════════════════════════════
+             HOW TO ADD YOUR PROFILE PHOTO — STEP BY STEP
+
+             STEP 1: Create a folder called "images" inside your portfolio folder.
+                     Your folder structure should look like:
+                     portfolio/
+                       ├── images/
+                       │     └── profile.jpg   ← your photo goes here
+                       ├── index.html
+                       ├── about.html
+                       └── style.css
+
+             STEP 2: Copy your photo into the "images" folder.
+                     Rename it to "profile.jpg" (or profile.png).
+
+             STEP 3: In the <img> tag below, make sure src="images/profile.jpg"
+                     matches your actual filename.
+
+             STEP 4: Hide the placeholder by finding the <div class="photo-placeholder">
+                     and changing its style to: display: none;
+
+             TIPS:
+             - Best photo size: 400 × 500px portrait (head + shoulders)
+             - Use a plain or blurred background for professional look
+             - Smile! Friendly photos work well for freelance portfolios
+             ════════════════════════════════════════════════ -->
+
+        <!-- Your profile photo — change src to your image path -->
+        <img
+          class="profile-photo"
+          src="images/profile.jpg"
+          alt="Nerissa Laduan — Aspiring Data Analyst"
+          onerror="this.style.display='none'; document.getElementById('photo-placeholder').style.display='flex';"
+        >
+        <!-- ↑ CHANGE: Replace "images/profile.jpg" with your actual photo path
+               Also change the alt text to your real name -->
+
+        <!-- Placeholder shown when photo is missing — HIDE when you have a photo -->
+        
+
+        <!-- Floating skill tags around the photo -->
+        <!-- ↓ CHANGE these tags to match your tools -->
+        <div class="floating-tag tag-1">SQL Analysis</div>
+        <div class="floating-tag tag-2">Excel Ready</div>
+        <div class="floating-tag tag-3">Power BI</div>
+
+      </div><!-- end photo-frame -->
+    </div><!-- end hero-photo-side -->
+
+  </section><!-- end hero -->
+
+  <!-- ═══════════════════════════════════════════════════════
+       STATS / TRUST BAR
+       ── HOW TO EDIT ──
+       Change the numbers and labels to match your own stats.
+       If you don't have real numbers yet, use goals or learning hours.
+       Example: "200+ Hours of Study", "3 Projects Built", etc.
+       ═══════════════════════════════════════════════════════ -->
+  <div class="stats-bar">
+    <div class="stat-item reveal">
+      <span class="stat-number">3+</span>
+      <!-- ↑ CHANGE: Update with your actual number of projects -->
+      <span class="stat-label">Projects Built</span>
+    </div>
+    <div class="stat-item reveal" style="transition-delay:0.1s">
+      <span class="stat-number">4</span>
+      <!-- ↑ CHANGE: Number of tools/skills you know -->
+      <span class="stat-label">Tools Learned</span>
+    </div>
+    <div class="stat-item reveal" style="transition-delay:0.2s">
+      <span class="stat-number">200+</span>
+      <!-- ↑ CHANGE: Hours you've spent studying data analytics -->
+      <span class="stat-label">Hours of Study</span>
+    </div>
+    <div class="stat-item reveal" style="transition-delay:0.3s">
+      <span class="stat-number">100%</span>
+      <span class="stat-label">Committed to Learning</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CTA BANNER — "Open for Work" strip
+       ── HOW TO EDIT ──
+       Change the heading and paragraph to update your message.
+       ═══════════════════════════════════════════════════════ -->
+  <div class="cta-banner">
+    <h2>Open for Entry-Level &amp; Freelance Opportunities</h2>
+    <p>Whether you need a data VA, a freelance analyst, or someone to clean up your spreadsheets — I am ready to help.</p>
+    <a href="contact.html" class="btn-white">Let's Work Together →</a>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       FOOTER
+       ── HOW TO EDIT ──
+       Change "Juan dela Cruz" to your name.
+       Change "DataByJuan" logo to match your nav logo.
+       Update the year if needed.
+       ═══════════════════════════════════════════════════════ -->
+  <footer>
+    <p>© 2026 Nerissa Laduan · Made with data &amp; dedication 🇵🇭</p>
+    <!-- ↑ CHANGE: Replace "Juan dela Cruz" with your full name -->
+    <a href="index.html">Data<span>ByNerissa</span></a>
+    <!-- ↑ CHANGE: Match your nav logo name -->
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════
+       JAVASCRIPT — scroll reveal + mobile nav toggle
+       No changes needed here.
+       ═══════════════════════════════════════════════════════ -->
+  <script>
+    // Mobile nav toggle
+    function toggleNav() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+
+    // Scroll reveal — animates elements as you scroll down
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

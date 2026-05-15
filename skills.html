@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="My Skills — SQL, Excel, Power BI, and data analysis expertise.">
+  <meta name="theme-color" content="#0f6a92">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Skills — DataByNerissa</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* ── SKILLS PAGE HEADER ─────────────────────────────── */
+    .page-hero {
+      background: var(--cream);
+      padding: 10rem 4rem 5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── SKILLS GRID ────────────────────────────────────── */
+    .skills-section { background: var(--paper); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .skill-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .skill-card:hover {
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+      transform: translateY(-3px);
+    }
+
+    /* Big emoji icon */
+    .skill-icon {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .skill-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .skill-card > p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+    }
+
+    /* Sub-skills tags */
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.2rem;
+    }
+    .skill-tag {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 0.28rem 0.75rem;
+      border-radius: 100px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    /* Proficiency bar */
+    .skill-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+    .skill-bar-wrap {
+      background: var(--cream);
+      border-radius: 100px;
+      height: 5px;
+      overflow: hidden;
+    }
+    .skill-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      border-radius: 100px;
+      transition: width 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+      width: 0%; /* starts at 0, animated by JS to final width */
+    }
+
+    /* ── TOOLS I'M LEARNING ─────────────────────────────── */
+    .learning-section { background: var(--dark-bg); }
+    .learning-section .section-label { color: var(--accent-light); }
+    .learning-section .section-title { color: var(--paper); }
+    .learning-section .section-intro { color: var(--dark-text); }
+
+    .learning-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .learning-chip {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(245,241,235,0.07);
+      border: 1px solid var(--dark-border);
+      border-radius: 100px;
+      padding: 0.6rem 1.2rem;
+      color: var(--paper);
+      font-size: 0.85rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .learning-chip:hover {
+      background: rgba(200,98,42,0.15);
+      border-color: var(--accent);
+    }
+    .learning-chip .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+    }
+    .dot-green   { background: #4caf7d; }
+    .dot-yellow  { background: #f5c842; }
+    .dot-orange  { background: var(--accent-light); }
+
+    /* Mobile */
+    @media (max-width: 900px) {
+      .page-hero { padding: 8rem 1.5rem 4rem; }
+      .skills-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">Data<span>ByNerissa</span></a>
+    <!-- ↑ CHANGE: Your brand name -->
+    <button class="nav-toggle" onclick="toggleNav()"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="skills.html" class="active">Skills</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <span class="section-label">Tools &amp; Abilities</span>
+    <h1 class="section-title">My Skills</h1>
+    <p class="section-intro">
+      These are the tools I've been learning and practicing.
+      I may be a beginner, but I'm confident in my ability to deliver real results.
+      <!-- ↑ CHANGE: Edit this intro to match your confidence level -->
+    </p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SKILLS GRID
+       ── HOW TO EDIT ──
+       Each .skill-card is one skill. To edit a skill:
+         1. Change the emoji icon
+         2. Change the heading (h3)
+         3. Change the description paragraph
+         4. Update the skill-tag chips
+         5. Change the proficiency percentage (data-width attribute)
+            and the label text (e.g. "Beginner · 60%")
+       To ADD a skill: copy a full .skill-card block and paste it.
+       ═══════════════════════════════════════════════════════ -->
+  <section class="skills-section">
+    <span class="section-label reveal">Core Skills</span>
+    <h2 class="section-title reveal">What I Work With</h2>
+    <p class="section-intro reveal">Skills I actively use in my projects and practice daily.</p>
+
+    <div class="skills-grid">
+
+      <!-- SKILL 1: EXCEL -->
+      <div class="skill-card reveal">
+        <span class="skill-icon">📊</span>
+        <!-- ↑ CHANGE: Replace emoji with a relevant one -->
+
+        <h3>Microsoft Excel</h3>
+        <!-- ↑ CHANGE: Skill name -->
+
+        <p>The backbone of data analysis. I use Excel to organize, summarize, and visualize data in a way anyone can understand — from simple tables to full pivot dashboards.</p>
+        <!-- ↑ CHANGE: Your own description of how you use this tool -->
+
+        <div class="skill-tags">
+          <!-- ↑ CHANGE: Add or remove tags based on what you actually know -->
+          <span class="skill-tag">Pivot Tables</span>
+          <span class="skill-tag">XLOOKUP</span>
+          <span class="skill-tag">VLOOKUP</span>
+          <span class="skill-tag">Data Cleaning</span>
+          <span class="skill-tag">Charts & Graphs</span>
+          <span class="skill-tag">Conditional Formatting</span>
+        </div>
+
+        <div class="skill-bar-label">
+          <span>Proficiency</span>
+          <span>Intermediate · 75%</span>
+          <!-- ↑ CHANGE: Update label to match your actual level -->
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar" data-width="75"></div>
+          <!-- ↑ CHANGE: data-width="75" → change 75 to your percentage (0–100) -->
+        </div>
+      </div>
+
+      <!-- SKILL 2: SQL -->
+      <div class="skill-card reveal" style="transition-delay:0.1s">
+        <span class="skill-icon">🗄️</span>
+        <h3>SQL</h3>
+        <p>I write SQL queries to pull, filter, and organize data from databases. I can answer business questions like "Which product sold the most?" or "Who are my top customers?"</p>
+
+        <div class="skill-tags">
+          <span class="skill-tag">SELECT &amp; WHERE</span>
+          <span class="skill-tag">GROUP BY</span>
+          <span class="skill-tag">ORDER BY</span>
+          <span class="skill-tag">JOIN</span>
+          <span class="skill-tag">Aggregate Functions</span>
+          <span class="skill-tag">Subqueries</span>
+        </div>
+
+        <div class="skill-bar-label">
+          <span>Proficiency</span>
+          <span>Beginner · 60%</span>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar" data-width="60"></div>
+        </div>
+      </div>
+
+      <!-- SKILL 3: POWER BI -->
+      <div class="skill-card reveal" style="transition-delay:0.2s">
+        <span class="skill-icon">📈</span>
+        <h3>Power BI</h3>
+        <p>I turn raw data into beautiful, interactive dashboards that make it easy for anyone — technical or not — to understand trends, patterns, and key metrics.</p>
+
+        <div class="skill-tags">
+          <span class="skill-tag">Dashboard Design</span>
+          <span class="skill-tag">Data Modeling</span>
+          <span class="skill-tag">Visualizations</span>
+          <span class="skill-tag">Filters &amp; Slicers</span>
+          <span class="skill-tag">DAX Basics</span>
+        </div>
+
+        <div class="skill-bar-label">
+          <span>Proficiency</span>
+          <span>Beginner · 65%</span>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar" data-width="65"></div>
+        </div>
+      </div>
+
+      <!-- SKILL 4: DATA CLEANING -->
+      <div class="skill-card reveal" style="transition-delay:0.3s">
+        <span class="skill-icon">🧹</span>
+        <h3>Data Cleaning</h3>
+        <p>Messy data leads to wrong decisions. I clean, fix, and organize raw datasets — removing duplicates, fixing formats, handling blanks — so your analysis is always reliable.</p>
+
+        <div class="skill-tags">
+          <span class="skill-tag">Duplicate Removal</span>
+          <span class="skill-tag">Format Standardization</span>
+          <span class="skill-tag">Null Handling</span>
+          <span class="skill-tag">Outlier Detection</span>
+          <span class="skill-tag">Data Validation</span>
+        </div>
+
+        <div class="skill-bar-label">
+          <span>Proficiency</span>
+          <span>Intermediate · 80%</span>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar" data-width="80"></div>
+        </div>
+      </div>
+
+      <!-- ── ADD MORE SKILLS HERE ──────────────────────────
+           Copy a .skill-card block above and paste here.
+           Change the content to your new skill.
+           ─────────────────────────────────────────────────── -->
+
+    </div><!-- end skills-grid -->
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       TOOLS I'M CURRENTLY LEARNING
+       ── HOW TO EDIT ──
+       Add or remove .learning-chip items.
+       Change dot color:
+         dot-green  = actively learning
+         dot-yellow = exploring / just started
+         dot-orange = planned next
+       ═══════════════════════════════════════════════════════ -->
+  <section class="learning-section">
+    <span class="section-label reveal">Always Growing</span>
+    <h2 class="section-title reveal">Currently Learning</h2>
+    <p class="section-intro reveal">
+      The data field moves fast. Here's what I'm studying right now and planning to learn next.
+    </p>
+
+    <div class="learning-grid reveal">
+
+      <!-- Green dot = actively studying now -->
+      <div class="learning-chip">
+        <span class="dot dot-green"></span> Python for Data Analysis
+        <!-- ↑ CHANGE: What you're actively learning -->
+      </div>
+      <div class="learning-chip">
+        <span class="dot dot-green"></span> Advanced SQL (CTEs, Window Functions)
+      </div>
+      <div class="learning-chip">
+        <span class="dot dot-yellow"></span> Google Sheets
+        <!-- Yellow = just started -->
+      </div>
+      <div class="learning-chip">
+        <span class="dot dot-yellow"></span> Data Storytelling
+      </div>
+      <div class="learning-chip">
+        <span class="dot dot-orange"></span> Tableau
+        <!-- Orange = planned, not started yet -->
+      </div>
+      <div class="learning-chip">
+        <span class="dot dot-orange"></span> Statistics Fundamentals
+      </div>
+
+      <!-- Add more chips by copying a .learning-chip block -->
+
+    </div>
+
+    <!-- Legend for the colored dots -->
+    <div style="display:flex;gap:2rem;margin-top:2rem;flex-wrap:wrap;">
+      <span style="font-size:0.78rem;color:rgba(245,241,235,0.45);display:flex;align-items:center;gap:0.4rem">
+        <span class="dot dot-green" style="display:inline-block;width:8px;height:8px;border-radius:50%"></span> Actively studying
+      </span>
+      <span style="font-size:0.78rem;color:rgba(245,241,235,0.45);display:flex;align-items:center;gap:0.4rem">
+        <span class="dot dot-yellow" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f5c842"></span> Just started
+      </span>
+      <span style="font-size:0.78rem;color:rgba(245,241,235,0.45);display:flex;align-items:center;gap:0.4rem">
+        <span class="dot dot-orange" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent-light)"></span> Planned next
+      </span>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-banner">
+    <h2>Skills + Dedication = Results</h2>
+    <p>I may be early in my career, but I show up with full effort on every project.</p>
+    <a href="contact.html" class="btn-white">Hire Me →</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Nerissa Laduan · Made with data &amp; dedication 🇵🇭</p>
+    <!-- ↑ CHANGE: Your name -->
+    <a href="index.html">Data<span>ByNerissa</span></a>
+  </footer>
+
+  <script>
+    function toggleNav() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+
+    // Scroll reveal observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+
+          // Animate skill bars inside revealed cards
+          e.target.querySelectorAll('.skill-bar').forEach(bar => {
+            const targetWidth = bar.getAttribute('data-width') + '%';
+            setTimeout(() => { bar.style.width = targetWidth; }, 200);
+          });
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Also animate bars that are already visible on load
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.skill-card.visible .skill-bar').forEach(bar => {
+        bar.style.width = bar.getAttribute('data-width') + '%';
+      });
+    });
+  </script>
+</body>
+</html>

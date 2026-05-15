@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="About Me — Learn about my journey into data analytics and what drives my passion.">
+  <meta name="theme-color" content="#0f6a92">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- ═══════════════════════════════════════════════════════
+       PAGE TITLE — change "Juan dela Cruz" to your name
+       ═══════════════════════════════════════════════════════ -->
+  <title>About Me — DataByNerissa</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* ── ABOUT PAGE HEADER ──────────────────────────────── */
+    .page-hero {
+      background: var(--dark-bg);
+      padding: 10rem 4rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      right: -100px; top: -100px;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,98,42,0.15) 0%, transparent 70%);
+    }
+    .page-hero .section-label { color: var(--accent-light); }
+    .page-hero .section-title { color: var(--paper); font-size: clamp(2.5rem, 5vw, 4rem); }
+    .page-hero .section-intro { color: var(--dark-text); margin-bottom: 0; }
+
+    /* ── MAIN ABOUT SECTION ─────────────────────────────── */
+    #about-main { background: var(--paper); }
+
+    .about-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    /* ── ABOUT PHOTO COLUMN ─────────────────────────────── */
+    .about-photo-col { position: relative; }
+
+    /* ── YOUR ABOUT PAGE PHOTO ──────────────────────────
+       This can be the same photo as the homepage, or a different one.
+
+       HOW TO USE:
+       1. Save your photo in the "images" folder as "about.jpg"
+          (or use the same "profile.jpg" from the homepage)
+       2. Change src="images/about.jpg" below to match your file
+
+       RECOMMENDED SIZE: 500 × 600px portrait photo
+       ─────────────────────────────────────────────────── */
+    .about-photo {
+      width: 100%;
+      border-radius: 16px;
+      object-fit: cover;
+      object-position: top;
+      aspect-ratio: 4 / 5;
+      display: block;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+
+      /* Placeholder color if photo not found */
+      background: linear-gradient(160deg, #2d4060, #1a2740);
+    }
+
+    .about-photo-placeholder {
+      aspect-ratio: 4 / 5;
+      border-radius: 16px;
+      background: linear-gradient(160deg, #2d4060, #1a2740);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.85rem;
+      text-align: center;
+      gap: 0.5rem;
+    }
+
+    /* Accent quote card overlapping the photo */
+    .about-quote-card {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      background: var(--accent);
+      color: var(--white);
+      padding: 1.2rem 1.5rem;
+      border-radius: 12px;
+      max-width: 200px;
+      box-shadow: 0 8px 30px rgba(200,98,42,0.4);
+    }
+    .about-quote-card p {
+      font-family: 'DM Serif Display', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      line-height: 1.4;
+      margin-bottom: 0.4rem;
+    }
+    .about-quote-card small {
+      font-size: 0.7rem;
+      opacity: 0.8;
+    }
+
+    /* ── ABOUT TEXT COLUMN ──────────────────────────────── */
+    .about-text-col {}
+
+    .about-text-col p {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 1.4rem;
+    }
+    .about-text-col p strong { color: var(--ink); font-weight: 500; }
+
+    /* ── STRENGTH CARDS ─────────────────────────────────── */
+    .strengths-section {
+      background: var(--cream);
+    }
+
+    .strengths-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2rem;
+    }
+
+    .strength-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.6rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .strength-card:hover {
+      box-shadow: 0 10px 36px rgba(0,0,0,0.07);
+      transform: translateY(-2px);
+    }
+    .strength-icon {
+      font-size: 2rem;
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+    .strength-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 0.4rem;
+    }
+    .strength-card p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── TIMELINE / JOURNEY SECTION ─────────────────────── */
+    .journey-section { background: var(--paper); }
+
+    .timeline {
+      position: relative;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 18px;
+      top: 8px; bottom: 8px;
+      width: 2px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+    .timeline-dot {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+    .timeline-dot.grey {
+      background: var(--cream);
+      border: 2px solid var(--border);
+    }
+    .timeline-body {
+      padding-top: 0.4rem;
+    }
+    .timeline-date {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+    .timeline-body h4 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+    .timeline-body p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* Mobile */
+    @media (max-width: 900px) {
+      .page-hero { padding: 8rem 1.5rem 4rem; }
+      .about-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .about-quote-card { display: none; }
+      .strengths-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION — same across all pages -->
+  <nav>
+    <a href="index.html" class="nav-logo">Data<span>ByNerissa</span></a>
+    <!-- ↑ CHANGE: Update your brand name -->
+
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════
+       PAGE HERO HEADER
+       ── HOW TO EDIT ──
+       Change the heading and description to describe yourself.
+       ═══════════════════════════════════════════════════════ -->
+  <div class="page-hero">
+    <span class="section-label">Get to Know Me</span>
+    <h1 class="section-title">
+      The Person Behind<br>the Data
+    </h1>
+    <p class="section-intro">
+      Data enthusiast passionate about transforming data into meaningful insights and simple visual stories.
+      <!-- ↑ CHANGE: Write your own one-liner about yourself -->
+    </p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       ABOUT MAIN SECTION — photo + text
+       ═══════════════════════════════════════════════════════ -->
+  <section id="about-main">
+    <div class="about-layout">
+
+      <!-- LEFT: Your photo -->
+      <div class="about-photo-col reveal">
+
+        <!-- ════════════════════════════════════════════════
+             HOW TO ADD YOUR ABOUT PAGE PHOTO
+
+             OPTION A — Same photo as homepage:
+               Change src to: src="images/profile.jpg"
+
+             OPTION B — Different photo (e.g. studying or working):
+               1. Save photo in images/ folder as "about.jpg"
+               2. Change src to: src="images/about.jpg"
+
+             Recommended: casual but professional photo —
+             studying at a desk, working on a laptop, etc.
+             ════════════════════════════════════════════════ -->
+        <img
+          class="about-photo"
+          src="images/about.jpg"
+          alt="Nerissa G. Laduan studying data analytics"
+          onerror="this.style.display='none'; document.getElementById('about-ph').style.display='flex';"
+        >
+        <!-- ↑ CHANGE: Replace "images/about.jpg" and update the alt text -->
+
+        <!-- Placeholder — hide when you have a photo -->
+        <div class="about-photo-placeholder" id="about-ph" style="display:none">
+          <span style="font-size:3rem">📸</span>
+          <strong style="color:white">Add your photo</strong>
+          <p style="font-size:0.75rem;color:rgba(255,255,255,0.5)">Save as images/about.jpg</p>
+        </div>
+
+        <!-- Motivational quote card — overlaps the photo -->
+        <div class="about-quote-card">
+          <!-- ↓ CHANGE: Replace with your own quote or goal -->
+          <p>"Data is the compass that guides smarter decisions."</p>
+          <small>— My guiding belief</small>
+        </div>
+
+      </div><!-- end about-photo-col -->
+
+      <!-- RIGHT: Your story text -->
+      <div class="about-text-col reveal" style="transition-delay:0.15s">
+        <span class="section-label">My Story</span>
+        <h2 class="section-title">A Data Analyst with<br>a <em style="font-style:italic;color:var(--accent)">Purpose</em></h2>
+
+        <!-- ── YOUR BIO TEXT ──────────────────────────────
+             Edit these paragraphs to tell YOUR story.
+             Be honest and personal — clients appreciate authenticity.
+             ─────────────────────────────────────────────────── -->
+        <p>
+          Hi! I'm <strong>Nerissa G. Laduan</strong>, I am an aspiring Data Analyst from the Philippines 
+          who is passionate about transforming raw data into clear, meaningful insights that help people
+           and businesses make better decisions.
+          <!-- ↑ CHANGE: Replace with your actual name and story intro -->
+        </p>
+
+        <p>
+         I have foundational skills in Excel, SQL, Power BI, and data cleaning, and I am actively building my experience through hands-on practice and personal projects.
+          While I do not yet have formal work experience, I am highly motivated, detail-oriented, and committed to continuous learning and improvement.
+          I enjoy working with data because it allows me to find patterns, solve problems, and create simple visual stories that are easy to understand.
+           I am especially interested in building dashboards and reports that bring clarity to complex information.<!-- ↑ CHANGE: Update to match your actual education and status -->
+        </p>
+
+        <p>
+          My purpose is not only to become a professional Data Analyst, but also to use my skills to provide value,
+           support businesses, and grow into a reliable freelancer or Virtual Assistant in the data field.
+          <!-- ↑ CHANGE: Describe YOUR personal goal -->
+        </p>
+
+        <p>
+          I am open to entry-level opportunities where I can learn, contribute, and develop my skills in a real-world environment.
+          <!-- ↑ CHANGE: Add something personal about you — hobbies, interests, motivation -->
+        </p>
+
+        <!-- Buttons linking to your work -->
+        <div class="btn-row" style="margin-top:2rem">
+          <a href="projects.html" class="btn-primary">See My Projects →</a>
+          <a href="cv.pdf" class="btn-secondary" download>Download CV</a>
+          <!-- ↑ CHANGE: Replace "cv.pdf" with your resume filename -->
+        </div>
+
+      </div><!-- end about-text-col -->
+    </div><!-- end about-layout -->
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       STRENGTHS SECTION
+       ── HOW TO EDIT ──
+       Change the icon, title, and description for each card.
+       Add or remove cards as needed.
+       ═══════════════════════════════════════════════════════ -->
+  <section class="strengths-section">
+    <span class="section-label reveal">Why Work With Me</span>
+    <h2 class="section-title reveal">My Strengths</h2>
+    <p class="section-intro reveal">These are the qualities I bring to every project and client relationship.</p>
+
+    <div class="strengths-grid">
+
+      <div class="strength-card reveal">
+        <span class="strength-icon">🎯</span>
+        <!-- ↑ CHANGE: Replace emoji with one that fits your strength -->
+        <h3>Detail-Oriented</h3>
+        <!-- ↑ CHANGE: Replace with your strength name -->
+        <p>I pay close attention to details to make sure my work is accurate and clean. For example, when I work on Excel or Power BI dashboards, 
+          I double-check the data to avoid mistakes like wrong totals or missing entries. I also make sure charts are clear and easy to understand so clients can quickly get the right insights without confusion</p>
+        <!-- ↑ CHANGE: Describe this strength in your own words -->
+      </div>
+
+      <div class="strength-card reveal" style="transition-delay:0.1s">
+        <span class="strength-icon">⚡</span>
+        <h3>Fast Learner</h3>
+        <p>I can quickly learn new tools and processes. For instance, even if I haven’t used a specific Power BI feature or Excel formula before,
+           I take time to explore it, watch tutorials, and apply it right away in practice. This helps me adapt fast to new tasks or client requirements without needing long training.</p>
+      </div>
+
+      <div class="strength-card reveal" style="transition-delay:0.2s">
+        <span class="strength-icon">💪</span>
+        <h3>Hardworking</h3>
+        <p>I am committed to finishing my tasks properly and on time. If a project requires extra effort, like cleaning messy data or fixing errors in a report, I don’t stop until it’s done right. I focus on quality work, even if it takes longer, because I believe good results matter more than rushing.</p>
+      </div>
+
+      <div class="strength-card reveal" style="transition-delay:0.3s">
+        <span class="strength-icon">🤝</span>
+        <h3>Client-Focused</h3>
+        <p>I always think about what the client really needs. For example, if a client wants a simple report, I don’t just build complex dashboards—I make sure it’s easy to read and useful for their decision-making. I also listen carefully to feedback and adjust my work based on what helps them most.</p>
+      </div>
+
+    </div><!-- end strengths-grid -->
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       JOURNEY / TIMELINE SECTION
+       ── HOW TO EDIT ──
+       Update each timeline item with your real milestones.
+       Add more items by copying a .timeline-item block.
+       ═══════════════════════════════════════════════════════ -->
+  <section class="journey-section">
+    <span class="section-label reveal">My Learning Journey</span>
+    <h2 class="section-title reveal">How I Got Here</h2>
+    <p class="section-intro reveal">Every expert was once a beginner. Here's my path so far.</p>
+
+    <div class="timeline">
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot">📚</div>
+        <div class="timeline-body">
+          <div class="timeline-date">2025</div>
+          <!-- ↑ CHANGE: Update the year -->
+          <h4>Discovered Data Analytics</h4>
+          <!-- ↑ CHANGE: Title of your first milestone -->
+          <p>I first became interested in data analytics when I watched an Excel tutorial on YouTube. I realized how powerful data can be in solving real business problems, such as organizing information, tracking performance, and making better decisions. That moment sparked my serious interest in pursuing this field.</p>
+          <!-- ↑ CHANGE: Describe how you got started -->
+        </div>
+      </div>
+
+      <div class="timeline-item reveal" style="transition-delay:0.1s">
+        <div class="timeline-dot">💻</div>
+        <div class="timeline-body">
+          <div class="timeline-date">2026</div>
+          <h4>Graduated BTLED Major in ICT </h4>
+          <p>I graduated with a Bachelor of Technical Teacher Education (BTLED) major in ICT. During my studies, I also gained teaching experience, including helping students learn Microsoft Excel. This strengthened my ability to explain data concepts in a simple and practical way.</p>
+          <!-- ↑ CHANGE: Describe what you learned and where -->
+        </div>
+      </div>
+
+      <div class="timeline-item reveal" style="transition-delay:0.2s">
+        <div class="timeline-dot">📊</div>
+        <div class="timeline-body">
+          <div class="timeline-date">May 2026</div>
+          <h4>Completed TESDA Data Analytics Training &amp; Built First Dashboard</h4>
+          <p>I completed formal training in Data Analytics under TESDA, where I gained hands-on experience in Excel, Power BI, Power Query, and basic data processing. This training helped me build practical skills in cleaning data, creating reports, and building dashboards.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal" style="transition-delay:0.3s">
+        <div class="timeline-dot">🚀</div>
+        <div class="timeline-body">
+          <div class="timeline-date">2025 — Now</div>
+          <!-- ↑ CHANGE: Update to present year -->
+          <h4>Building Portfolio &amp; Seeking Opportunities</h4>
+          <p>Currently building my project portfolio and actively seeking entry-level and freelance data analytics roles where I can contribute and keep growing.</p>
+        </div>
+      </div>
+
+      <!-- Add more milestones by copying the block above ↑ -->
+
+      <div class="timeline-item reveal" style="transition-delay:0.4s">
+        <div class="timeline-dot grey">⭐</div>
+        <div class="timeline-body">
+          <div class="timeline-date" style="color:var(--muted)">Coming Soon</div>
+          <h4 style="color:var(--muted)">First Client Project</h4>
+          <p>My next milestone — working with a real client to deliver a data project that creates genuine value for their business.</p>
+          <!-- ↑ CHANGE: Update this when you land your first project -->
+        </div>
+      </div>
+
+    </div><!-- end timeline -->
+  </section>
+
+  <!-- CTA Banner -->
+  <div class="cta-banner">
+    <h2>Ready to Work Together?</h2>
+    <p>I am open for entry-level jobs, freelance projects, and Virtual Assistant roles in data analytics.</p>
+    <a href="contact.html" class="btn-white">Get in Touch →</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Nerissa Laduan · Made with data &amp; dedication 🇵🇭</p>
+    <a href="index.html">Data<span>ByNerissa</span></a>
+  </footer>
+
+  <script>
+    function toggleNav() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

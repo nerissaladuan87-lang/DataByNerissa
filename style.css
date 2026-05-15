@@ -1,0 +1,339 @@
+/* ============================================================
+   GLOBAL STYLESHEET — style.css
+   Used by ALL pages. Edit colors, fonts, and layout here.
+   ============================================================ */
+
+/* ── GOOGLE FONTS ──────────────────────────────────────────
+   To change fonts, replace the @import URL below.
+   Current fonts:
+     - DM Serif Display → headings (elegant, editorial)
+     - DM Sans          → body text (clean, readable)
+   Find alternatives at: https://fonts.google.com
+   ────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
+
+/* ── COLOR PALETTE ─────────────────────────────────────────
+   Change colors here and they update across the whole site.
+   --ink       → main text color (very dark)
+   --paper     → page background (warm off-white)
+   --cream     → subtle section background
+   --accent    → your brand color (burnt orange)
+   --accent-light → lighter version of brand color
+   --muted     → grey text for descriptions
+   --border    → lines and card borders
+   --white     → pure white for cards
+   ────────────────────────────────────────────────────────── */
+:root {
+  --ink:          #0d1117;
+  --paper:        #f5f1eb;
+  --cream:        #ede9e1;
+  --accent:       #0f6a92; /* ← CHANGE THIS to update your brand color everywhere */
+  --accent-light: #4d2aeb;
+  --muted:        #7a7060;
+  --border:       #d4cec4;
+  --white:        #ffffff;
+  --card:         #faf8f4;
+  --dark-bg:      #0d1117;
+  --dark-border:  rgba(245,241,235,0.12);
+  --dark-text:    rgba(245,241,235,0.7);
+}
+
+/* ── RESET & BASE ──────────────────────────────────────────
+   Do not change these unless you know what you're doing.
+   ────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* Subtle paper texture overlay — remove if you don't like it */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.6;
+}
+
+/* ── NAVIGATION BAR ────────────────────────────────────────
+   The top nav shared across all pages.
+   ────────────────────────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 4rem;
+  background: rgba(245,241,235,0.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── LOGO ─────────────────────────────────────────────
+   Change "Data" and "Juan" below in each HTML file.
+   The <span> part gets the accent color automatically.
+   ───────────────────────────────────────────────────── */
+.nav-logo {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.3rem;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+.nav-logo span { color: var(--accent); }
+
+/* Navigation links list */
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active { color: var(--accent); }
+
+/* Mobile hamburger menu button */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--ink);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+/* ── SECTION LAYOUT ────────────────────────────────────────
+   Standard spacing for every section.
+   ────────────────────────────────────────────────────────── */
+section, .page-section {
+  padding: 6rem 4rem;
+}
+
+/* Tiny uppercase label above titles */
+.section-label {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+  display: block;
+}
+
+/* Main section heading */
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  color: var(--ink);
+}
+
+/* Subtitle / intro text under heading */
+.section-intro {
+  color: var(--muted);
+  max-width: 520px;
+  font-size: 1rem;
+  margin-bottom: 3.5rem;
+  line-height: 1.8;
+}
+
+/* ── BUTTONS ───────────────────────────────────────────────
+   Reusable button styles.
+   ────────────────────────────────────────────────────────── */
+.btn-primary {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.9rem 2rem;
+  border: none;
+  border-radius: 4px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--ink);
+  padding: 0.9rem 2rem;
+  border: 1.5px solid var(--border);
+  border-radius: 4px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+.btn-white {
+  background: var(--white);
+  color: var(--accent);
+  padding: 0.9rem 2.4rem;
+  border: none;
+  border-radius: 4px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+
+/* ── SCROLL REVEAL ANIMATION ──────────────────────────────
+   Elements with class "reveal" fade in when scrolled to.
+   Handled by the JS in each page's <script> tag.
+   ────────────────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── FOOTER ────────────────────────────────────────────────
+   Shared footer at the bottom of every page.
+   ────────────────────────────────────────────────────────── */
+footer {
+  background: var(--dark-bg);
+  border-top: 1px solid var(--dark-border);
+  padding: 2rem 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+footer p {
+  font-size: 0.78rem;
+  color: rgba(245,241,235,0.35);
+}
+
+footer a {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.1rem;
+  color: var(--paper);
+  text-decoration: none;
+}
+footer a span { color: var(--accent); }
+
+/* ── CTA BANNER ────────────────────────────────────────────
+   The orange "Open for Work" strip used across pages.
+   ────────────────────────────────────────────────────────── */
+.cta-banner {
+  background: var(--accent);
+  padding: 5rem 4rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent, transparent 30px,
+    rgba(255,255,255,0.05) 30px,
+    rgba(255,255,255,0.05) 31px
+  );
+  pointer-events: none;
+}
+.cta-banner h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  color: var(--white);
+  letter-spacing: -0.03em;
+  margin-bottom: 1rem;
+  position: relative;
+}
+.cta-banner p {
+  color: rgba(255,255,255,0.8);
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+/* ── MOBILE RESPONSIVE ─────────────────────────────────────
+   Adjustments for small screens (phones & tablets).
+   ────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+
+  /* Show hamburger on mobile */
+  .nav-toggle { display: flex; }
+
+  /* Hide nav links by default on mobile */
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0; right: 0;
+    background: rgba(245,241,235,0.98);
+    border-bottom: 1px solid var(--border);
+    padding: 1.5rem;
+    flex-direction: column;
+    gap: 1.2rem;
+    backdrop-filter: blur(14px);
+  }
+  .nav-links.open { display: flex; }
+
+  section, .page-section { padding: 4rem 1.5rem; }
+  .cta-banner { padding: 3.5rem 1.5rem; }
+  footer { flex-direction: column; text-align: center; padding: 1.5rem; }
+}

@@ -1,0 +1,31 @@
+# Security Headers for GitHub Pages
+# Netlify uses _headers file, but for GitHub Pages use these as best practices
+
+# Content Security Policy - prevent XSS attacks
+# Allows: styles, scripts from trusted sources
+X-Content-Type-Options: nosniff
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+Referrer-Policy: strict-origin-when-cross-origin
+
+# Cache optimization for static assets
+# Cache CSS, JS, images for 30 days
+*.css
+  Cache-Control: public, immutable, max-age=2592000
+
+*.js
+  Cache-Control: public, immutable, max-age=2592000
+
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.webp
+  Cache-Control: public, immutable, max-age=2592000
+
+*.pdf
+  Cache-Control: public, max-age=604800
+
+# HTML files should not be cached for long
+*.html
+  Cache-Control: public, max-age=3600

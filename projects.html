@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="My Projects — Data dashboards, SQL analysis, and Excel projects showcasing real-world skills.">
+  <meta name="theme-color" content="#0f6a92">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Projects — DataByNerissa</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* ── PROJECTS PAGE HEADER ───────────────────────────── */
+    .page-hero {
+      background: var(--dark-bg);
+      padding: 10rem 4rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      left: -80px; bottom: -80px;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,98,42,0.15) 0%, transparent 70%);
+    }
+    .page-hero .section-label { color: var(--accent-light); }
+    .page-hero .section-title { color: var(--paper); }
+    .page-hero .section-intro { color: var(--dark-text); margin-bottom: 0; }
+
+    /* ── PROJECTS GRID ──────────────────────────────────── */
+    .projects-section { background: var(--paper); }
+
+    /* Full-width single-column cards for a premium feel */
+    .projects-list {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    /* Individual project card */
+    .project-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      transition: box-shadow 0.25s, transform 0.2s;
+    }
+    .project-card:hover {
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      transform: translateY(-4px);
+    }
+    /* Alternate layout: odd cards have photo on right */
+    .project-card.reverse { direction: rtl; }
+    .project-card.reverse > * { direction: ltr; }
+
+    /* ── PROJECT PHOTO AREA ─────────────────────────────── */
+    .project-image {
+      position: relative;
+      overflow: hidden;
+      min-height: 320px;
+    }
+
+    /* ════════════════════════════════════════════════════════
+       HOW TO ADD PROJECT SCREENSHOTS / IMAGES
+
+       For EACH project, you need one screenshot or photo.
+       This is the image that appears on the left (or right) of
+       the project card.
+
+       STEPS FOR EACH PROJECT:
+
+       1. Take a screenshot of your Excel/Power BI dashboard,
+          or export your chart as an image.
+          You can also use a mockup from Canva or similar tools.
+
+       2. Save the image in the "images" folder:
+            images/project1.jpg  ← for the Sales Dashboard
+            images/project2.jpg  ← for the Data Cleaning project
+            images/project3.jpg  ← for the SQL Analysis project
+
+       3. In each .project-img tag below, change the src="..." to
+          match your saved image filename.
+
+       RECOMMENDED IMAGE SIZE: 700 × 450 pixels (landscape)
+       RECOMMENDED FORMAT: .jpg or .png
+
+       WHERE TO GET FREE SCREENSHOTS / VISUALS:
+         - Take a screenshot of your actual Excel/Power BI file
+         - Create a mockup in Canva (free): canva.com
+         - Use Pexels for free stock: pexels.com (search "data dashboard")
+         - Use a placeholder: https://placehold.co/700x450
+
+       IF YOU DON'T HAVE A SCREENSHOT YET:
+         The colorful gradient placeholder will show automatically.
+         It will switch to your real image as soon as you add it.
+       ════════════════════════════════════════════════════════ -->
+
+    /* The actual <img> tag for the project photo */
+    .project-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top left;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .project-card:hover .project-img { transform: scale(1.03); }
+
+    /* Placeholder shown when no image is provided */
+    .project-img-placeholder {
+      width: 100%;
+      height: 100%;
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.82rem;
+      text-align: center;
+      padding: 2rem;
+    }
+    .placeholder-icon { font-size: 3.5rem; }
+
+    /* Background themes for each project placeholder */
+    .bg-project1 { background: linear-gradient(135deg, #1a2740 0%, #2d4a70 100%); }
+    .bg-project2 { background: linear-gradient(135deg, #2d1a10 0%, #5a3420 100%); }
+    .bg-project3 { background: linear-gradient(135deg, #1a2a20 0%, #2d5040 100%); }
+    .bg-project4 { background: linear-gradient(135deg, #2a1f3d 0%, #4a3a6d 100%); }
+
+    /* Decorative diagonal lines on placeholder */
+    .project-img-placeholder::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent, transparent 20px,
+        rgba(255,255,255,0.03) 20px,
+        rgba(255,255,255,0.03) 21px
+      );
+      pointer-events: none;
+    }
+    .project-image { position: relative; }
+
+    /* Project number badge on image */
+    .project-number-badge {
+      position: absolute;
+      top: 1.2rem;
+      left: 1.2rem;
+      background: rgba(0,0,0,0.5);
+      color: var(--paper);
+      padding: 0.3rem 0.8rem;
+      border-radius: 100px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      backdrop-filter: blur(6px);
+      z-index: 2;
+    }
+
+    /* ── PROJECT TEXT AREA ──────────────────────────────── */
+    .project-body {
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-tag-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.7rem;
+    }
+
+    .project-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      line-height: 1.2;
+      margin-bottom: 0.8rem;
+    }
+
+    .project-desc {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    /* "What I Did" steps */
+    .project-steps {
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+    .project-steps li {
+      display: flex;
+      gap: 0.8rem;
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+      align-items: flex-start;
+    }
+    .step-num {
+      background: var(--cream);
+      color: var(--accent);
+      border-radius: 50%;
+      width: 20px; height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 600;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* Insight highlight box */
+    .insight-box {
+      background: var(--cream);
+      border-left: 3px solid var(--accent);
+      padding: 0.9rem 1.1rem;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 1.5rem;
+      flex: 1;
+    }
+    .insight-box .insight-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+    .insight-box p {
+      font-size: 0.88rem;
+      color: var(--ink);
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    /* Tools used tags */
+    .project-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .tool-tag {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 0.25rem 0.8rem;
+      border-radius: 100px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    /* Mobile */
+    @media (max-width: 900px) {
+      .page-hero { padding: 8rem 1.5rem 4rem; }
+      .project-card, .project-card.reverse {
+        grid-template-columns: 1fr;
+        direction: ltr;
+      }
+      .project-image { min-height: 220px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">Data<span>ByNerissa</span></a>
+    <!-- ↑ CHANGE: Your brand name -->
+    <button class="nav-toggle" onclick="toggleNav()"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="projects.html" class="active">Projects</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <span class="section-label">Portfolio</span>
+    <h1 class="section-title">My Projects</h1>
+    <p class="section-intro">
+      Real projects I built to practice my skills and demonstrate how data
+      can help businesses make smarter decisions.
+      <!-- ↑ CHANGE: Edit this intro if you want -->
+    </p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       PROJECTS LIST
+       ── HOW TO EDIT ──
+       Each project card follows this structure:
+         1. Left side  = project image/screenshot
+         2. Right side = title, description, steps, insight, tools
+
+       To ADD a new project: copy a full .project-card block and paste below.
+       To REMOVE a project: delete the .project-card block entirely.
+       ═══════════════════════════════════════════════════════ -->
+  <section class="projects-section">
+    <span class="section-label reveal">What I've Built</span>
+    <h2 class="section-title reveal">Featured Projects</h2>
+    <p class="section-intro reveal">Each project represents a real business problem I solved using data.</p>
+
+    <div class="projects-list">
+
+      <!-- ══════════════════════════════════════════════════
+           PROJECT 1: SALES DASHBOARD
+           ══════════════════════════════════════════════════ -->
+      <div class="project-card reveal">
+
+        <!-- LEFT: Project Image -->
+        <div class="project-image bg-project1">
+          <span class="project-number-badge">Project 01</span>
+
+          <!-- ════════════════════════════════════
+               ADD YOUR PROJECT 1 SCREENSHOT HERE
+
+               1. Save your screenshot as: images/project1.jpg
+               2. Make sure the src below matches the filename.
+               3. Change the alt text to describe your project.
+
+               Screenshot tips:
+               - Take a screenshot of your Excel/Power BI dashboard
+               - Crop to show only the important parts
+               - Use Windows Snipping Tool or Mac Cmd+Shift+4
+
+               If no image found → gradient placeholder shows instead.
+               ════════════════════════════════════ -->
+          <img
+            class="project-img"
+            src="images/project1.png"
+            alt="Retail Sales Dashboard — Excel and Power BI"
+            onerror="this.style.display='none';"
+          >
+          <!-- ↑ CHANGE: src="images/project1.jpg" to your actual screenshot path -->
+
+        
+        </div><!-- end project-image -->
+
+        <!-- RIGHT: Project Details -->
+        <div class="project-body">
+          <div class="project-tag-label">Excel &amp; Power BI</div>
+          <!-- ↑ CHANGE: Main tool category for this project -->
+
+          <h3>E-Commerce Transaction Analysis</h3>
+          <!-- ↑ CHANGE: Project title -->
+
+          <p class="project-desc">
+           This project involved processing over 500,000 rows of global e-commerce transaction data to identify purchasing patterns
+            and market distribution. By transforming raw CSV data into an interactive Power BI dashboard, the goal was to visualize
+             transaction density and revenue flow across international borders to inform inventory and expansion strategies.
+            <!-- ↑ CHANGE: Describe YOUR project in plain English -->
+          </p>
+
+          <!-- Step-by-step of what you did -->
+          <ul class="project-steps">
+            <!-- ↑ CHANGE: Replace with your actual process steps (3–5 steps) -->
+            <li><span class="step-num">1</span>Data Extraction: Aggregated 12 months of global transaction records, including product codes, pricing, and quantities.</li>
+            <li><span class="step-num">2</span>Advanced Cleaning: Used Power Query to handle mixed data formats and calculated a custom "Revenue" field by multiplying unit price and quantity.</li>
+            <li><span class="step-num">3</span>Statistical Grouping: Created custom DAX columns and bins to categorize transaction sizes and count unique order IDs.</li>
+            <li><span class="step-num">4</span>Interactive Visualization: Developed a Power BI suite featuring Top-N filters, basket-size histograms, and geographic revenue treemaps.</li>
+          </ul>
+
+          <!-- Key insight found -->
+          <div class="insight-box">
+            <div class="insight-label">💡 Key Insight Found</div>
+            <p>
+              High Basket Diversity: Customers are not just buying single items; 
+              they average 23 unique products per transaction, indicating successful
+               cross-category appeal.<br><br> Market Dominance: While the United Kingdom drives 89% of all transactions, the data identifies Germany and France as the most consistent international hubs, signaling prime areas for marketing expansion.
+               
+              <!-- ↑ CHANGE: Write the most important finding from YOUR project -->
+            </p>
+          </div>
+
+          <!-- Tools used -->
+          <div class="project-tools">
+            <!-- ↑ CHANGE: List only the tools you actually used -->
+            <span class="tool-tag">Excel</span>
+            <span class="tool-tag">Power BI</span>
+            <span class="tool-tag">Pivot Tables</span>
+            <span class="tool-tag">Data Cleaning</span>
+          </div>
+
+        </div><!-- end project-body -->
+      </div><!-- end project-card 1 -->
+
+      <!-- ══════════════════════════════════════════════════
+           PROJECT 2: DATA CLEANING
+           Layout is reversed (image on right side)
+           ══════════════════════════════════════════════════ -->
+      <div class="project-card reverse reveal" style="transition-delay:0.1s">
+
+        <!-- Project Image (appears on right due to .reverse) -->
+        <div class="project-image bg-project2">
+          <span class="project-number-badge">Project 02</span>
+
+          <!-- ════════════════════════════════════
+               ADD YOUR PROJECT 2 SCREENSHOT HERE
+               Save as: images/project2.jpg
+
+               IDEAS for this screenshot:
+               - Before/after side-by-side of messy vs clean data
+               - A screenshot of your Excel "before" sheet
+               - A photo of your screen while cleaning the data
+               ════════════════════════════════════ -->
+          <img
+            class="project-img"
+            src="images/project2.png"
+            alt="Customer Data Cleaning Project — Excel"
+            onerror="this.style.display='none';"
+          >
+          <!-- ↑ CHANGE: Replace with your actual screenshot path -->
+
+          <div class="project-img-placeholder bg-project2">
+            <span class="placeholder-icon">🧹</span>
+            <strong>Add your screenshot here</strong>
+            <p style="font-size:0.75rem;opacity:0.6">Save as: images/project2.jpg</p>
+          </div>
+        </div>
+
+        <!-- Project Details -->
+        <div class="project-body">
+          <div class="project-tag-label">Excel · Data Cleaning</div>
+          <!-- ↑ CHANGE: Tool category -->
+
+          <h3>Excel Data Transformation & Cleaning
+              <br>Raw Data to Reliable Insights</h3>
+          <!-- ↑ CHANGE: Project title -->
+
+          <p class="project-desc">
+            In this project, I handled the "messy" side of data—the critical stage before any analysis can happen. I took a 
+            cluttered raw spreadsheet and applied a structured cleaning workflow in Excel to ensure the data was accurate, consistent,
+             and ready for professional reporting. This process eliminates the "garbage in, garbage out" risk, providing a solid
+              foundation for business decisions.
+            <!-- ↑ CHANGE: Describe the problem you solved -->
+          </p>
+
+          <ul class="project-steps">
+            <li><span class="step-num">1</span>Duplicate Removal: Identified and purged identical entries that would have artificially inflated sales numbers and skewed totals.</li>
+            <li><span class="step-num">2</span>Standardizing Formats: Converted various date styles (e.g., 12/01/2024 vs. Jan-12-24) into a single, uniform format to allow for accurate chronological sorting.</li>
+            <li><span class="step-num">3</span>Handling Missing Values: Audited the dataset for empty cells in critical columns like "Price" or "Customer ID," filling gaps where possible or flagging them for review.</li>
+            <li><span class="step-num">4</span>Data Categorization: Used text functions (like TRIM and PROPER) to fix irregular spacing and capitalization, ensuring that "United Kingdom" and "united kingdom" were recognized as the same location.</li>
+          </ul>
+
+          <div class="insight-box">
+            <div class="insight-label">💡 Key Benefit Found</div>
+            <p>
+              Reduced Error Margin by 15%: By fixing formatting inconsistencies and removing duplicates, I ensured that the final reports reflected the actual business performance rather than data entry errors. This simple but vital step prevents costly mistakes in inventory and financial forecasting.
+              <!-- ↑ CHANGE: Most important finding or result of your cleaning project -->
+            </p>
+          </div>
+
+          <div class="project-tools">
+            <span class="tool-tag">Excel</span>
+            <span class="tool-tag">Data Cleaning</span>
+            <span class="tool-tag">XLOOKUP</span>
+            <span class="tool-tag">Text Functions</span>
+          </div>
+        </div>
+
+      </div><!-- end project-card 2 -->
+
+      <!-- ══════════════════════════════════════════════════
+           PROJECT 3: SQL ANALYSIS
+           ══════════════════════════════════════════════════ -->
+      <div class="project-card reveal" style="transition-delay:0.2s">
+
+        <div class="project-image bg-project3">
+          <span class="project-number-badge">Project 03</span>
+
+          <!-- ════════════════════════════════════
+               ADD YOUR PROJECT 3 SCREENSHOT HERE
+               Save as: images/project3.jpg
+
+               IDEAS for this screenshot:
+               - Screenshot of your SQL query in a query editor
+               - Screenshot of the results table
+               - A chart you built from the SQL results
+               ════════════════════════════════════ -->
+          <img
+            class="project-img"
+            src="images/project3.png"
+            alt="SQL Sales Analysis Project"
+            onerror="this.style.display='none';"
+          >
+          <!-- ↑ CHANGE: Replace with your actual screenshot path -->
+
+          <div class="project-img-placeholder bg-project3">
+            <span class="placeholder-icon">🗄️</span>
+            <strong>Add your screenshot here</strong>
+            <p style="font-size:0.75rem;opacity:0.6">Save as: images/project3.jpg</p>
+          </div>
+        </div>
+
+        <div class="project-body">
+          <div class="project-tag-label">SQL · Data Analysis</div>
+
+          <h3>LGU Population Dashboard: Ilocos Region (Region 1)
+                 <br>Demographic Analysis & Visual Mapping</h3>
+          <!-- ↑ CHANGE: Your SQL project title -->
+
+          <p class="project-desc">
+            This project focuses on organizing and visualizing population data across the Local Government Units (LGUs) of the Ilocos Region. By taking raw census or demographic records, I built a dashboard that identifies which provinces and municipalities are the most populated, helping local officials and planners see where resources are needed most.
+            <!-- ↑ CHANGE: Describe your SQL project -->
+          </p>
+
+          <ul class="project-steps">
+            <li><span class="step-num">1</span>Summarizing with Pivot Tables: I used Pivot Tables to act like a "smart filter." Instead of looking at thousands of individual rows, the Pivot Table automatically adds up the total population for each province (Ilocos Norte, Ilocos Sur, La Union, and Pangasinan) in seconds.</li>
+            <li><span class="step-num">2</span>Visualizing with Charts: I turned those summaries into a Bar Chart. This allows anyone to instantly see the "population gap" between different areas without reading a single number. The taller the bar, the more people live in that LGU.</li>
+            <li><span class="step-num">3</span>Interactive Slicers: I added "buttons" (Slicers) so you can click on a specific province, and the whole dashboard instantly updates to show only the towns and cities within that area.</li>
+  
+          <div class="insight-box">
+            <div class="insight-label">💡 Key Insight Found</div>
+            <p>
+              Pangasinan Dominance: The data clearly shows that Pangasinan holds the largest share of the region's population.
+               For a government unit, this insight is vital—it proves that the majority of regional healthcare, education, and infrastructure funding needs to be prioritized in this province to serve the most citizens effectively.<!-- ↑ CHANGE: Most interesting finding from your SQL analysis -->
+            </p>
+          </div>
+
+          <div class="project-tools">
+            <span class="tool-tag">SQL</span>
+            <span class="tool-tag">SELECT / WHERE</span>
+            <span class="tool-tag">GROUP BY</span>
+            <span class="tool-tag">JOIN</span>
+            <span class="tool-tag">Aggregation</span>
+          </div>
+        </div>
+
+      </div><!-- end project-card 3 -->
+
+      <!-- ══════════════════════════════════════════════════
+           PROJECT 4: SQL SAMPLE PROJECTS (PDF)
+           ══════════════════════════════════════════════════ -->
+      <div class="project-card reveal" style="transition-delay:0.2s">
+
+        <!-- LEFT: Project Image -->
+        <div class="project-image bg-project4">
+          <span class="project-number-badge">Project 04</span>
+
+          <img
+            class="project-img"
+            src="images/project4.png"
+            alt="SQL SELECT and JOIN Queries — Sample Projects"
+            onerror="this.style.display='none';"
+          >
+        </div><!-- end project-image -->
+
+        <!-- RIGHT: Project Details -->
+        <div class="project-body">
+          <div class="project-tag-label">SQL · Queries</div>
+
+          <h3>SQL SELECT &amp; JOIN Queries</h3>
+
+          <p class="project-desc">
+            A collection of SQL sample projects focused on data retrieval and relational table operations. These projects demonstrate practical SELECT statements and various JOIN techniques to extract meaningful insights from multiple related tables.
+          </p>
+
+          <!-- Step-by-step of what you did -->
+          <ul class="project-steps">
+            <li><span class="step-num">1</span>SELECT Fundamentals: Mastered basic and advanced SELECT queries with WHERE conditions, ORDER BY, and aggregate functions.</li>
+            <li><span class="step-num">2</span>INNER JOIN: Connected related tables to combine data from multiple sources based on matching conditions.</li>
+            <li><span class="step-num">3</span>OUTER JOINS: Used LEFT, RIGHT, and FULL OUTER JOINs to preserve unmatched records across datasets.</li>
+            <li><span class="step-num">4</span>Complex Queries: Combined multiple JOINs with grouping and filtering to extract business-relevant insights.</li>
+          </ul>
+
+          <!-- Key insight found -->
+          <div class="insight-box">
+            <div class="insight-label">💡 Key Insight Found</div>
+            <p>
+              SELECT and JOIN are the foundation of SQL. Mastering these core operations enables you to retrieve, combine, and analyze data across normalized database structures—essential for all data analysis work.
+            </p>
+          </div>
+
+          <!-- Tools used + PDF Link -->
+          <div class="project-tools">
+            <span class="tool-tag">SQL</span>
+            <span class="tool-tag">SELECT</span>
+            <span class="tool-tag">JOIN</span>
+            <span class="tool-tag">Queries</span>
+          </div>
+
+          <!-- PDF Download Link -->
+          <div style="margin-top: 1.5rem;">
+            <a href="SQL.pdf" target="_blank" class="btn-download" style="display: inline-block; background: var(--accent); color: var(--white); padding: 0.6rem 1.2rem; border-radius: 6px; text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: background 0.2s;">
+              📥 Download PDF
+            </a>
+          </div>
+
+        </div><!-- end project-body -->
+      </div><!-- end project-card 4 -->
+
+      <!-- ══════════════════════════════════════════════════
+           ADD MORE PROJECTS HERE
+           Copy a full .project-card block above and paste here.
+           Change all the content inside it.
+           Remember to:
+             1. Add a new image file (e.g. images/project5.jpg)
+             2. Update the project number badge
+             3. Change background class (create a new .bg-project5 style)
+           ══════════════════════════════════════════════════ -->
+
+    </div><!-- end projects-list -->
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-banner">
+    <h2>Interested in Working Together?</h2>
+    <p>I can do similar projects for your real business data — let's talk!</p>
+    <a href="contact.html" class="btn-white">Start a Project →</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Nerissa Laduan · Made with data &amp; dedication 🇵🇭</p>
+    <!-- ↑ CHANGE: Your name -->
+    <a href="index.html">Data<span>ByNerissa</span></a>
+  </footer>
+
+  <script>
+    function toggleNav() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

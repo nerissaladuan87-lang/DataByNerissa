@@ -1,0 +1,16 @@
+# Allow all legitimate crawlers
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://[your-username].github.io/sitemap.xml
+
+# Block bad bots (optional)
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
