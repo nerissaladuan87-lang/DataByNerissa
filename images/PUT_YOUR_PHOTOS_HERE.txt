@@ -1,0 +1,9 @@
+lace your photos in this folder:
+
+  profile.jpg   → Your homepage profile photo
+  about.jpg     → Your about page photo
+  project1.jpg  → Sales Dashboard screenshot
+  project2.jpg  → Data Cleaning project screenshot
+  project3.jpg  → SQL Analysis screenshot
+
+See README.md for full instructions.
